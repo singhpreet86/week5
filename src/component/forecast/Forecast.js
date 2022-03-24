@@ -1,40 +1,50 @@
-import React, { useState, useEffect } from 'react';
+import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 
-const Forecast = () => {
+export default class Forecast extends Component{
 
-       const [city, setCity] = useState('');
-       const [items, setItems] = useState('');
-       const handleSubmit = e => {
-       fetch("https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=8d1d55987e65fd7428680f71ad1ecb43")
+     constructor(props) {
+            super(props);
+            this.state = {
+                city: '',
+                items: []
+            };
+            this.handleChange = this.handleChange.bind(this);
+            this.handleSubmit = this.handleSubmit.bind(this);
+        }
+
+        handleChange(e) {
+            this.setState({[e.target.name]: e.target.value});
+        }
+
+        handleSubmit(e) {
+        let city =  e.target.city.value
+
+        fetch("https://api.openweathermap.org/data/2.5/weather?q=" + this.state.city + "&appid=8d1d55987e65fd7428680f71ad1ecb43")
               .then(res => res.json())
               .then(
                 (result) => {
-                  setItems(
-                    result
-                  );
+                  this.setState({
+                    items: result
+                  });
                 }
              )
 
         e.preventDefault();
         }
 
-        useEffect(() => {
-             let status = localStorage.getItem('status');
-             if (status == false || status == "false"){
-                 window.location.href = "/dashboard";
-             }
-        });
 
+
+    render(){
+      const { items } = this.state;
         return(
             <div>
                 <h4>Forecast Page</h4>
 
-                <form className="col s12" onSubmit={handleSubmit}>
+                <form className="col s12" onSubmit={this.handleSubmit}>
                                     <div className="input-field">
-                                        <input type="text" placeholder="Enter city" name="city" value={ city }
-                                             onChange={ event => setCity(event.target.value) }
-                                              />
+                                        <input type="text" placeholder="Enter city" name="city" value={this.state.city}
+                                               onChange={this.handleChange}/>
                                     </div>
 
                                     <div className="row text-center">
@@ -51,6 +61,5 @@ const Forecast = () => {
 
             </div>
         )
+    }
 }
-
-export default Forecast;

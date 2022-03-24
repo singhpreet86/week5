@@ -1,35 +1,57 @@
-import React, {useState} from 'react';
+import React, {Component} from 'react';
 import './RegistrationForm.css';
 import { Link, useNavigate } from 'react-router-dom';
-const RegistrationForm = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+export default class RegistrationForm extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            email: '',
+            password: '',
+        };
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
 
-    const handleSubmit = e => {
+    handleChange(e) {
+        this.setState({[e.target.name]: e.target.value});
+    }
+
+    handleSubmit(e) {
+        let status = true;
+       if (this.state.email == '') {
+            status = false;
+            this.setState({errorMsg: "Email field is Empty"});
+        }
+
+        if (status) {
+
             localStorage.setItem('password', this.state.password);
             localStorage.setItem('email', this.state.email);
 
-            e.preventDefault();
+            this.setState({errorMsg: "User added Successfully"});
+
+        }
+        e.preventDefault();
 
     }
 
-    return (
+    render() {
+        return (
+
             <div className="col s12">
                 <div><h4 className="center-align">Register Here</h4></div>
-                <form className="col s12" onSubmit={handleSubmit}>
+                <div className="text-center"><p>{this.state.errorMsg}</p></div>
+                <form className="col s12" onSubmit={this.handleSubmit}>
 
                     <div className="input-field">
-                        <input type="email" placeholder="Email" name="email"  value={ email }
-                             onChange={ event => setEmail(event.target.value) }
-                             />
+                        <input type="email" placeholder="Email" name="email" value={this.state.email}
+                               onChange={this.handleChange}/>
                     </div>
 
 
                     <div className="input-field">
-                        <input type="password" placeholder="Password" name="password"
-                         value={ password }
-                                                             onChange={ event => setPassword(event.target.value) }
-                                                           />
+                        <input type="password" placeholder="Password" name="password" value={this.state.password}
+                               onChange={this.handleChange}/>
                     </div>
 
 
@@ -44,8 +66,8 @@ const RegistrationForm = () => {
                 </form>
             </div>
         );
+    }
 }
 
-export default RegistrationForm;
 
 
