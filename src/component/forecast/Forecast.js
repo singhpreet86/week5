@@ -7,7 +7,7 @@ export default class Forecast extends Component{
             super(props);
             this.state = {
                 city: '',
-                items: []
+                items: [],
             };
             this.handleChange = this.handleChange.bind(this);
             this.handleSubmit = this.handleSubmit.bind(this);
@@ -42,6 +42,8 @@ export default class Forecast extends Component{
 
     render(){
       const { items } = this.state;
+      let listItems;
+
         return(
             <div>
                 <h4>Forecast Page</h4>
@@ -58,11 +60,113 @@ export default class Forecast extends Component{
                                     </div>
                 </form>
 
+        {
+            items.weather?
+            <div>
+            <h1> WEATHER </h1>
 
-                {JSON.stringify(items.weather)}
-                {JSON.stringify(items.main)}
-                {JSON.stringify(items.wind)}
-                {JSON.stringify(items.clouds)}
+            <table>
+                {items.weather.map((item) => (
+                    <tr >
+                        {Object.keys(item).map((key) => (
+                          <th>{key}</th>
+                        ))}
+                     </tr>
+              ))}
+
+              {items.weather.map((item) => (
+                <tr >
+                    {Object.values(item).map((val) => (
+                    <td>{val}</td>
+                ))}
+                </tr>
+              ))}
+            </table>
+            </div>
+            :
+            ""
+         }
+        {
+            items.main?
+            <div>
+            <h1> MAIN </h1>
+            <table>
+                {[items.main].map((item) => (
+                    <tr >
+                        {Object.keys(item).map((key) => (
+                          <th>{key}</th>
+                        ))}
+                     </tr>
+              ))}
+
+              {[items.main].map((item) => (
+                <tr >
+                    {Object.values(item).map((val) => (
+                    <td>{val}</td>
+                ))}
+                </tr>
+              ))}
+            </table>
+            </div>
+            :
+            ""
+         }
+
+         {
+                     items.wind?
+                     <div>
+                     <h1> WIND </h1>
+                     <table>
+                         {[items.wind].map((item) => (
+                             <tr >
+                                 {Object.keys(item).map((key) => (
+                                   <th>{key}</th>
+                                 ))}
+                              </tr>
+                       ))}
+
+                       {[items.wind].map((item) => (
+                         <tr >
+                             {Object.values(item).map((val) => (
+                             <td>{val}</td>
+                         ))}
+                         </tr>
+                       ))}
+                     </table>
+                     </div>
+                     :
+                     ""
+                  }
+
+{
+                     items.clouds?
+                     <div>
+                     <h1> CLOUDS </h1>
+                     <table>
+                         {[items.clouds].map((item) => (
+                             <tr >
+                                 {Object.keys(item).map((key) => (
+                                   <th>{key}</th>
+                                 ))}
+                              </tr>
+                       ))}
+
+                       {[items.clouds].map((item) => (
+                         <tr >
+                             {Object.values(item).map((val) => (
+                             <td>{val}</td>
+                         ))}
+                         </tr>
+                       ))}
+                     </table>
+                     </div>
+                     :
+                     ""
+                  }
+
+
+
+
 
             </div>
         )
