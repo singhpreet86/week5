@@ -17,6 +17,13 @@ export default class Forecast extends Component{
             this.setState({[e.target.name]: e.target.value});
         }
 
+           componentDidMount() {
+                let status = localStorage.getItem('status');
+                             if (status == false || status == "false"){
+                                 window.location.href = "/dashboard";
+                             }
+            }
+
         handleSubmit(e) {
         let city =  e.target.city.value
 
@@ -32,8 +39,6 @@ export default class Forecast extends Component{
 
         e.preventDefault();
         }
-
-
 
     render(){
       const { items } = this.state;
