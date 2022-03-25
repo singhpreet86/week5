@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import Link from 'next/link'
+
 export default class RegistrationForm extends Component {
     constructor(props) {
         super(props);
@@ -59,6 +60,12 @@ export default class RegistrationForm extends Component {
                         </button>
                     </div>
                     <div className="row text-center">
+
+                     <Link href="login">
+                                                                                                                 <a>Login</a>
+                                                                                                               </Link>
+
+
                     </div>
 
                 </form>

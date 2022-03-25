@@ -36,25 +36,23 @@ export default class Dashboard extends Component{
 
         return(
           <div className={styles.container}>
-
-           <div class="row">
-            <div class="column"></div>
-            <div class="column"></div>
-            <div class="column"></div>
-          </div> 
-
-                              <div className="col-md-6">
+                              <span className="col-md-6">
                                  <Link href="forecast">
                                                                 <a>Forecast</a>
                                                               </Link>
-                             </div>
-                             <div className="col-md-6">
+                             </span>
+                             <span className="col-md-6">
                              { status == "true" || status == true?
                                   <button className="btn waves-effect waves-light" onClick={this.logOut} type="submit" name="action"> Log out </button>
                                   :
                                   <button className="btn waves-effect waves-light" onClick={this.logIn} type="submit" name="action"> Log in </button>
                                   }
-                             </div>
+                             </span>
+                               <span className="col-md-6">
+                                                              <Link href="registration">
+                                                                                             <a>Register</a>
+                                                                                           </Link>
+                                                          </span>
                        </div>
 
         )
