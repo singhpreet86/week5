@@ -36,6 +36,13 @@ export default class Dashboard extends Component{
 
         return(
           <div className={styles.container}>
+
+           <div class="row">
+            <div class="column"></div>
+            <div class="column"></div>
+            <div class="column"></div>
+          </div> 
+
                               <div className="col-md-6">
                                  <Link href="forecast">
                                                                 <a>Forecast</a>
